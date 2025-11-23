@@ -18,8 +18,7 @@ class Thread extends Model
         'category_id'
     ];
 
-    protected static function boot()
-    {
+    protected static function boot() {
         parent::boot();
         
         static::creating(function ($thread) {
@@ -29,33 +28,27 @@ class Thread extends Model
         });
     }
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
-    public function category()
-    {
+    public function category(){
         return $this->belongsTo(Category::class);
     }
 
-    public function posts()
-    {
+    public function posts(){
         return $this->hasMany(Post::class);
     }
 
-    public function reports()
-    {
+    public function reports(){
         return $this->hasMany(Report::class);
     }
 
-    public function getRouteKeyName()
-    {
+    public function getRouteKeyName(){
         return 'slug';
     }
 
-    public function postsCount()
-    {
+    public function postsCount() {
         return $this->posts()->where('status', 'active')->count();
     }
 }

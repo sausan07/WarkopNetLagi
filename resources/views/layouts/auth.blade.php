@@ -10,17 +10,15 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        .font-utama { font-family: 'Quicksand', sans-serif; }
-        h2 { font-family: 'Fredoka', sans-serif; font-weight:700; }
-        input::placeholder { font-weight: 400; }
+        .font-utama { font-family: 'Quicksand', sans-serif; } h2 { font-family: 'Fredoka', sans-serif; font-weight:700; } input::placeholder { font-weight: 400; }
     </style>
+
     @livewireStyles
 </head>
 <body class="bg-[#FCE7C8] min-h-screen flex items-center justify-center p-4">
     
     @yield('content')
     
-    @livewireScripts
-    @stack('scripts')
+
 </body>
 </html>

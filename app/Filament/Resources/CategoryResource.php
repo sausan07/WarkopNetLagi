@@ -24,19 +24,20 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Schema $schema): Schema
-    {
+    public static function form(Schema $schema): Schema {
         return $schema
-            ->components([
-                TextInput::make('name')
-                    ->required(),
-                TextInput::make('slug')
-                    ->required(),
-            ]);
+        ->components([
+            TextInput::make('name')
+            ->required(),
+            TextInput::make('slug')
+            ->required(),
+            
+        ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Table $table): Table 
     {
+
         return $table
             ->recordTitleAttribute('name')
             ->columns([
@@ -67,10 +68,11 @@ class CategoryResource extends Resource
             ]);
     }
 
-    public static function getPages(): array
-    {
+    public static function getPages(): array {
+        
         return [
             'index' => ManageCategories::route('/'),
         ];
     }
+    
 }

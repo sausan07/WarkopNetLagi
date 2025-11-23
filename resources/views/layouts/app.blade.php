@@ -17,8 +17,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        .font-utama { font-family: "Bricolage Grotesque", sans-serif; }
-        .font-accent { font-family: "Funnel Sans", sans-serif; }
+        .font-utama { font-family: "Bricolage Grotesque", sans-serif; } .font-accent { font-family: "Funnel Sans", sans-serif; }
     </style>
     
     @livewireStyles
@@ -27,7 +26,6 @@
     
     @yield('content')
     
-    @livewireScripts
-    @stack('scripts')
+
 </body>
 </html>

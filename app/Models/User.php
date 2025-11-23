@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -79,22 +79,22 @@ class User extends Authenticatable implements FilamentUser
     }
 
 
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')
-                    ->withTimestamps();
-    }
+public function followers()
+{
+    return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')->withTimestamps();
+}
 
-    public function following()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')
-                    ->withTimestamps();
-    }
+public function following()
+{
+    return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')->withTimestamps();
+}
+
+
 
  
     public function isFollowing(User $user)
     {
-        return $this->following()->where('following_id', $user->id)->exists();
+        return $this->following()->where('following_id', $user->username)->exists();
     }
 
     public function isAdmin()
@@ -102,9 +102,37 @@ class User extends Authenticatable implements FilamentUser
         return $this->user_role === 'admin';
     }
 
-    // flm
+    // flmn
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->isAdmin();
     }
+
+    //nyoba
+
+
+public function badge()
+{
+    return cache()->remember("user_badge_{$this->id}", 60, function () {
+
+        $threads = $this->threads()->count();
+        $posts   = $this->posts()->count();
+
+        // hitung like dari semua post user
+        $postIds = $this->posts()->pluck('id');
+        $likes = \App\Models\Like::whereIn('post_id', $postIds)->count();
+
+        $points = ($threads * 3) + ($posts * 1) + ($likes * 2);
+
+        if ($points > 30) return ['Legenda Meja 3', '⭐'];
+        if ($points > 20) return ['Barista Diskusi', '🍵'];
+        if ($points > 10) return ['Anak Warkop', '🔥'];
+        if ($points > 5)  return ['Pelanggan Tetap', '🍪'];
+
+        return ['Kopi Hitam', '☕'];
+    });
+}
+
+
+
 }

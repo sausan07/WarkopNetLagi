@@ -16,11 +16,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         @if($user->image)
-                            <img src="{{ asset('storage/' . $user->image) }}" 
-                                 alt="{{ $user->name }}" 
-                                 class="w-10 h-10 rounded-full object-cover">
+                            <img src="{{ asset('storage/' . $user->image) }}" alt="{{ $user->name }}" class="w-10 h-10 rounded-full object-cover">
                         @else
-                            <div class="w-10 h-10 bg-gradient-to-br from-[#EB5160] to-[#FFB347] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                            <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold text-sm">
                                 {{ strtoupper(substr($user->name, 0, 1)) }}
                             </div>
                         @endif
@@ -44,53 +42,46 @@
     <section class="md:col-span-2 space-y-8">
 
      
-        <div class="bg-white border border-[#FFB347]/50 rounded-2xl shadow p-6">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-         
-                <div class="relative w-full sm:w-1/2">
-                    <form action="{{ route('search') }}" method="GET">
-                        <input
-                            type="text"
-                            name="t"
-                            value="{{ $query ?? '' }}"
-                            placeholder="Cari diskusi..."
-                            class="w-full rounded-full border border-[#FFB347]/60 px-5 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#EB5160]"
-                        />
-                        <button type="submit" class="absolute right-4 top-2.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 hover:text-[#EB5160] transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14z" />
-                            </svg>
-                        </button>
-                    </form>
-                </div>
-
-               
-                <div class="flex flex-wrap gap-2">
-                    <a href="{{ route('home') }}" 
-                       class="px-4 py-1.5 text-sm rounded-full font-semibold transition
-                              {{ !request('category') ? 'bg-[#F29F05] text-white' : 'bg-[#FFF8F0] border border-[#FFB347] hover:bg-[#F29F05] hover:text-white' }}">
-                        Semua
-                    </a>
-                    @if($categories->count() > 0)
-                        @foreach($categories as $category)
-                        <a href="{{ route('home', ['category' => $category->slug]) }}" 
-                           class="px-4 py-1.5 text-sm rounded-full font-semibold transition
-                                  {{ request('category') == $category->slug ? 'bg-[#F29F05] text-white' : 'bg-[#FFF8F0] border border-[#FFB347] hover:bg-[#F29F05] hover:text-white' }}">
-                            {{ $category->name }}
-                        </a>
-                        @endforeach
-                    @endif
-                </div>
-            </div>
+<div class="bg-white border border-[#FFB347]/50 rounded-2xl shadow p-6 space-y-4">
+        <!-- Pencarian -->
+        <div class="relative w-full">
+            <form action="{{ route('search') }}" method="GET">
+                <input  
+                    type="text" 
+                    name="t" 
+                    value="{{ $query ?? '' }}" 
+                    placeholder="Cari diskusi..." 
+                    class="w-full rounded-full border border-[#FFB347]/60 px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#EB5160]"
+                />
+                <button type="submit" class="absolute right-4 top-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 hover:text-[#EB5160] transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14z" />
+                    </svg>
+                </button>
+            </form>
         </div>
+
+        <!-- Kategori di bawah pencarian -->
+        <div class="flex flex-wrap gap-2">
+            <a href="{{ route('home') }}" class="px-4 py-1.5 text-sm rounded-full font-semibold transition {{ !request('category') ? 'bg-[#F29F05] text-white' : 'bg-[#FFF8F0] border border-[#FFB347] hover:bg-[#F29F05] hover:text-white' }}">
+                Semua
+            </a>
+            @if($categories->count() > 0)
+                @foreach($categories as $category)
+                <a href="{{ route('home', ['category' => $category->slug]) }}" class="px-4 py-1.5 text-sm rounded-full font-semibold transition {{ request('category') == $category->slug ? 'bg-[#F29F05] text-white' : 'bg-[#FFF8F0] border border-[#FFB347] hover:bg-[#F29F05] hover:text-white' }}"> 
+                    {{ $category->name }} 
+                </a>
+                @endforeach
+            @endif
+        </div>
+    </div>
 
  
         @if(isset($query) && $query)
             <div class="flex items-center justify-between">
-                <h1 class="font-utama text-2xl font-bold text-[#373737]">
-                    Hasil Pencarian: <span class="text-[#EB5160]">"{{ $query }}"</span>
+                <h1 class="font-utama text-2xl font-bold text-[#373737]">  Hasil Pencarian: <span class="text-[#EB5160]">"{{ $query }}"</span>
                 </h1>
-                <a href="{{ route('home') }}" class="text-sm text-[#F29F05] hover:underline">← Kembali</a>
+                <a href="{{ route('home') }}" class="text-[#0509f2] hover:underline">← Kembaliiiii</a>
             </div>
         @else
             <h1 class="font-utama text-2xl font-bold text-[#373737]">Diskusi Terbaru</h1>
@@ -101,14 +92,21 @@
         <article class="bg-white border border-[#FFB347]/50 rounded-2xl shadow p-6 hover:shadow-md transition">
             
             <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-full bg-[#373737] text-white flex items-center justify-center font-bold">
-                    {{ strtoupper(substr($thread->user->username, 0, 2)) }}
+                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                    @if($thread->user->image)
+                        <img src="{{ asset('storage/' . $thread->user->image) }}" 
+                            class="w-10 h-10 rounded-full object-cover border shadow-sm" />
+                    @else
+                        <div class="w-10 h-10 rounded-full bg-black
+                                    text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                            {{ strtoupper(substr($thread->user->username, 0, 2)) }}
+                        </div>
+                    @endif
                 </div>
                 <div class="flex-1">
                     <div class="flex justify-between items-center">
                         <h3 class="font-semibold">
                             {{ $thread->user->username }} 
-                            <span class="text-sm text-gray-500">• {{ $thread->created_at->diffForHumans() }}</span>
                         </h3>
                         <span class="text-xs bg-[#FFB347]/20 text-[#F29F05] px-3 py-1 rounded-full">
                             #{{ $thread->category->name }}

@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function showRegistrationForm()
-    {
+    public function showRegistrationForm() {
         return view('auth.register');
     }
 
-    public function register(Request $request)
-    {
+    public function register(Request $request) {
         $request->validate([
             'name' => ['required', 'string', 'max:200'],
             'username' => ['required', 'string', 'max:200', 'unique:users'],
@@ -35,4 +33,5 @@ class RegisterController extends Controller
 
         return redirect()->route('home');
     }
+    
 }

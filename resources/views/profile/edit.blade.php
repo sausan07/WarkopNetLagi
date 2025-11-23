@@ -28,8 +28,7 @@
         </div>
     @endif
 
-    <form action="{{ route('profile.update', $user->username) }}" method="POST" enctype="multipart/form-data" 
-          class="bg-[#FFFAF0] shadow-xl rounded-2xl p-8 space-y-6 border border-[#FFB347]/40">
+    <form action="{{ route('profile.update', $user->username) }}" method="POST" enctype="multipart/form-data" class="bg-[#FFFAF0] shadow-xl rounded-2xl p-8 space-y-6 border border-[#FFB347]/40">
         @csrf
         @method('PUT')
         
@@ -47,12 +46,7 @@
        
         <div>
             <label class="block font-semibold text-[#373737] mb-2">Foto Profil</label>
-            <input
-                type="file"
-                name="image"
-                accept="image/*"
-                class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('image') border-red-500 @enderror"
-            />
+            <input type="file" name="image" accept="image/*" class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('image') border-red-500 @enderror" />
             @error('image')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -63,13 +57,7 @@
 
         <div>
             <label class="block font-semibold text-[#373737] mb-2">Nama Lengkap *</label>
-            <input
-                type="text"
-                name="name"
-                value="{{ old('name', $user->name) }}"
-                class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('name') border-red-500 @enderror"
-                required
-            />
+            <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('name') border-red-500 @enderror" required />
             @error('name')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -79,24 +67,14 @@
 
         <div>
             <label class="block font-semibold text-[#373737] mb-2">Username</label>
-            <input
-                type="text"
-                value="{{ $user->username }}"
-                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-100 text-gray-600"
-                disabled
-            />
+            <input type="text" value="{{ $user->username }}" class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-100 text-gray-600" disabled />
             <p class="text-sm text-gray-500 mt-1">Username tidak dapat diubah</p>
         </div>
 
 
         <div>
             <label class="block font-semibold text-[#373737] mb-2">Email</label>
-            <input
-                type="email"
-                value="{{ $user->email }}"
-                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-100 text-gray-600"
-                disabled
-            />
+            <input type="email" value="{{ $user->email }}" class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-100 text-gray-600"  disabled />
             <p class="text-sm text-gray-500 mt-1">Email tidak dapat diubah</p>
         </div>
 
@@ -106,15 +84,14 @@
             <textarea
                 name="bio" rows="4"
                 placeholder="Ceritakan sedikit tentang diri Anda..."
-                class="w-full px-4 py-3 rounded-xl border border-[#FFB347] bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] resize-none @error('bio') border-red-500 @enderror"
-            >{{ old('bio', $user->bio) }}</textarea>
+                class="w-full px-4 py-3 rounded-xl border border-[#FFB347] bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] resize-none @error('bio') border-red-500 @enderror">{{ old('bio', $user->bio) }}</textarea>
             @error('bio')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
             <p class="text-sm text-gray-500 mt-1">Maksimal 200 karakter</p>
         </div>
 
-        <!-- Tombol Submit -->
+        
         <div class="flex justify-end gap-4 pt-4">
             <a href="{{ route('profile', $user->username) }}" 
                class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-[#373737] rounded-xl font-semibold transition-colors">

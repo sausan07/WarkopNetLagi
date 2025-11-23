@@ -17,23 +17,19 @@ class Report extends Model
         'status'
     ];
 
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function thread()
-    {
+    public function thread(){
         return $this->belongsTo(Thread::class);
     }
 
-    public function post()
-    {
+    public function post() {
         return $this->belongsTo(Post::class);
     }
 
-    public function reportable()
-    {
+    public function reportable() {
         return $this->thread_id ? $this->thread : $this->post;
     }
 }

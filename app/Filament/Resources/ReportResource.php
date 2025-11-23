@@ -28,8 +28,8 @@ class ReportResource extends Resource
 
     protected static ?string $navigationLabel = 'Reports';
 
-    public static function form(Schema $schema): Schema
-    {
+    public static function form(Schema $schema): Schema {
+
         return $schema
             ->components([
                 Placeholder::make('reporter')
@@ -65,12 +65,12 @@ class ReportResource extends Resource
                     ])
                     ->required()
                     ->default('pending')
-                    ->helperText('Ubah status report. Admin melakukan tindakan manual terhadap konten (edit/hapus via menu Threads).'),
+                    ->helperText('Ubah status report'),
             ]);
     }
 
-    public static function table(Table $table): Table
-    {
+    public static function table(Table $table): Table {
+        
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([

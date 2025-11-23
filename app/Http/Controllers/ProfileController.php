@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function show($username)
-    {
+    public function show($username){
         $user = User::where('username', $username)->firstOrFail();
         
         $user->load([
@@ -26,8 +25,7 @@ class ProfileController extends Controller
         return view('profile.show', compact('user'));
     }
 
-    public function edit($username)
-    {
+    public function edit($username) {
         $user = User::where('username', $username)->firstOrFail();
         
         if (auth()->id() !== $user->id) {
@@ -37,8 +35,7 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user'));
     }
 
-    public function update(Request $request, $username)
-    {
+    public function update(Request $request, $username) {
         $user = User::where('username', $username)->firstOrFail();
         
         if (auth()->id() !== $user->id) {
@@ -52,7 +49,6 @@ class ProfileController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Delete old image if exists
             if ($user->image) {
                 Storage::disk('public')->delete($user->image);
             }
@@ -64,6 +60,6 @@ class ProfileController extends Controller
         $user->update($validated);
 
         return redirect()->route('profile', $user->username)
-            ->with('success', 'Profil berhasil diupdate!');
+        ->with('success', 'Profil berhasil diupdate!');
     }
 }

@@ -6,16 +6,16 @@ use App\Models\Thread;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
 
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
        
         $threadsQuery = Thread::with(['user', 'category', 'posts']);
 
-        // filtr kategori
+       
         if ($request->has('category')) {
             $categorySlug = $request->category;
             $threadsQuery->whereHas('category', function($query) use ($categorySlug) {
@@ -30,7 +30,7 @@ class HomeController extends Controller
         $categories = Category::withCount('threads')->get();
 
         
-        $suggestedUsers = User::where('id', '!=', auth()->id())
+        $suggestedUsers = User::where('id', '!=', Auth::user()->id)
             ->where('user_role', 'member')
             ->withCount('followers')
             ->orderBy('followers_count', 'desc')
@@ -45,15 +45,14 @@ class HomeController extends Controller
     }
 
     // cari thrd
-    public function search(Request $request)
-    {
+    public function search(Request $request) {
         $searchQuery = $request->input('t');
 
      
         $threads = Thread::with(['user', 'category', 'posts'])
             ->where(function($query) use ($searchQuery) {
                 $query->where('title', 'like', '%' . $searchQuery . '%')
-                      ->orWhere('content', 'like', '%' . $searchQuery . '%');
+                ->orWhere('content', 'like', '%' . $searchQuery . '%');
             })
             ->latest()
             ->paginate(10);
@@ -62,7 +61,7 @@ class HomeController extends Controller
         $categories = Category::withCount('threads')->get();
 
         
-        $suggestedUsers = User::where('id', '!=', auth()->id())
+        $suggestedUsers = User::where('id', '!=', Auth::user()->id)
             ->where('user_role', 'member')
             ->withCount('followers')
             ->orderBy('followers_count', 'desc')

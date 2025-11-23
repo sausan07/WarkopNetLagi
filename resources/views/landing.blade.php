@@ -8,7 +8,7 @@
 <section id="home" class="py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
         <div class="order-2 lg:order-2 ring-4 ring-[#FFB347] rounded-2xl shadow-2xl overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
-            <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="Kopi & Komunitas" class="w-full h-64 sm:h-80 md:h-96 object-cover"/>
+            <img src="https://i.pinimg.com/1200x/b2/6b/8b/b26b8bd5b465f1c4676a2b5d4892d58f.jpg" alt="" class="w-full h-64 sm:h-80 md:h-96 object-cover"/>
         </div>
         <div class="order-1 lg:order-1">
             <h1 class="text-5xl sm:text-6xl font-bold text-[#373737] font-utama leading-tight">
@@ -94,7 +94,7 @@
 <footer class="bg-[#373737] text-white py-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <p class="font-utama text-lg">&copy; 2025 WarkopNet. Secangkir Kopi, Sejuta Koneksi.</p>
-        <p class="text-sm mt-2 text-gray-400">Dibuat dengan ❤️ menggunakan Laravel & Livewire</p>
+        <p class="text-sm mt-2 text-gray-400">Dibuat dengan ❤️ untuk warkops</p>
     </div>
 </footer>
 @endsection

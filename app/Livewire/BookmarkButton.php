@@ -12,15 +12,16 @@ class BookmarkButton extends Component
     public $postId = null;
     public $isBookmarked = false;
 
-    public function mount($threadId = null, $postId = null)
-    {
+    public function mount($threadId = null, $postId = null) {
         $this->threadId = $threadId;
         $this->postId = $postId;
         $this->checkBookmarkStatus();
     }
 
-    public function checkBookmarkStatus()
-    {
+
+    
+
+    public function checkBookmarkStatus() {
         if (auth()->check()) {
             $query = Bookmark::where('user_id', auth()->id());
             
@@ -36,14 +37,13 @@ class BookmarkButton extends Component
         }
     }
 
-    public function toggleBookmark()
-    {
+    public function toggleBookmark() {
         if (!auth()->check()) {
             return redirect()->route('login');
         }
 
         if ($this->isBookmarked) {
-            // Remove bookmark
+            
             $query = Bookmark::where('user_id', auth()->id());
             
             if ($this->threadId) {
@@ -56,19 +56,26 @@ class BookmarkButton extends Component
             
             $query->delete();
             $this->isBookmarked = false;
-        } else {
-            // Add bookmark
+
+
+        } 
+        
+        else {
+           
             Bookmark::create([
                 'user_id' => auth()->id(),
                 'thread_id' => $this->threadId,
                 'post_id' => $this->postId,
             ]);
-            $this->isBookmarked = true;
-        }
-    }
 
-    public function render()
-    {
+            $this->isBookmarked = true;
+            
+        }
+        
+    }
+    
+
+    public function render() {
         return view('livewire.bookmark-button');
     }
 }

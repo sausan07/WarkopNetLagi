@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function store(Request $request, Thread $thread)
-    {
+    public function store(Request $request, Thread $thread){
         $validated = $request->validate([
             'content' => 'required|string|min:3',
         ]);
@@ -22,6 +21,6 @@ class PostController extends Controller
         ]);
 
         return redirect()->route('threads.show', $thread->slug)
-            ->with('success', 'Balasan berhasil ditambahkan!');
+        ->with('success', 'Balasan berhasil ditambahkan!');
     }
 }

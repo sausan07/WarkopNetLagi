@@ -26,14 +26,7 @@
     
         <div>
             <label class="block font-semibold text-[#373737] mb-2">Judul Diskusi *</label>
-            <input
-                type="text"
-                name="title"
-                value="{{ old('title') }}"
-                placeholder="Tulis judul yang menarik..."
-                class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('title') border-red-500 @enderror"
-                required
-            />
+            <input type="text" name="title" value="{{ old('title') }}" placeholder="Tulis judul yang menarik..." class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('title') border-red-500 @enderror" required />
             @error('title')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -42,11 +35,7 @@
 
         <div>
             <label class="block font-semibold text-[#373737] mb-2">Kategori *</label>
-            <select
-                name="category_id"
-                class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('category_id') border-red-500 @enderror"
-                required
-            >
+            <select name="category_id" class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] @error('category_id') border-red-500 @enderror" required>
                 <option value="" disabled selected>Pilih kategori...</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -63,13 +52,7 @@
 
         <div>
             <label class="block font-semibold text-[#373737] mb-2">Isi Diskusi *</label>
-            <textarea
-                name="content"
-                rows="8"
-                placeholder="Ceritakan pemikiran atau pertanyaan Anda..."
-                class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] resize-none @error('content') border-red-500 @enderror"
-                required
-            >{{ old('content') }}</textarea>
+            <textarea name="content" rows="8" placeholder="Ceritakan pemikiran atau pertanyaan Anda..." class="w-full px-4 py-3 rounded-xl border border-[#FFB347]/50 bg-white focus:ring-2 focus:ring-[#FF6EC7] focus:outline-none text-[#373737] resize-none @error('content') border-red-500 @enderror" required>{{ old('content') }}</textarea>
             @error('content')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -91,4 +74,5 @@
         </div>
     </form>
 </main>
+
 @endsection

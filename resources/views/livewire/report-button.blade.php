@@ -11,6 +11,7 @@
     </button>
 
 
+    {{-- MODAL --}}
     @if($showModal)
     <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" 
          wire:click.self="closeModal">
@@ -18,7 +19,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-[#373737]">🚩 Laporkan Konten</h3>
                 <button wire:click="closeModal" class="text-gray-500 hover:text-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
@@ -57,22 +58,13 @@
     </div>
     @endif
 
-  
-    @if (session()->has('message'))
-        <div class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50" 
-             x-data="{ show: true }" 
-             x-show="show" 
-             x-init="setTimeout(() => show = false, 3000)">
-            {{ session('message') }}
+
+    {{-- TOAST NOTIFICATION (LIVEWIRE ONLY) --}}
+    @if($showNotif)
+        <div class="fixed top-4 right-4 z-50 px-6 py-3 rounded-xl shadow-lg text-white
+            {{ $notifType === 'success' ? 'bg-green-500' : 'bg-red-500' }}">
+            {{ $notifMessage }}
         </div>
     @endif
 
-    @if (session()->has('error'))
-        <div class="fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50" 
-             x-data="{ show: true }" 
-             x-show="show" 
-             x-init="setTimeout(() => show = false, 3000)">
-            {{ session('error') }}
-        </div>
-    @endif
 </div>

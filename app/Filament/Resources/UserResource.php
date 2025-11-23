@@ -44,7 +44,10 @@ class UserResource extends Resource
                     ->default('member'),
                 TextInput::make('bio'),
                 FileUpload::make('image')
-                    ->image(),
+    ->directory('avatars')
+    ->disk('public')
+    ->image()
+    ->visibility('public'),
                 DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()
@@ -68,7 +71,13 @@ class UserResource extends Resource
                     ->searchable(),
                 TextColumn::make('bio')
                     ->searchable(),
-                ImageColumn::make('image'),
+ImageColumn::make('image')
+    ->disk('public')
+    ->visibility('public')
+    ->getStateUsing(fn ($record) => $record->image), // ambil path murni dari DB
+
+
+
                 TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),
