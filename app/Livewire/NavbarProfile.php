@@ -7,12 +7,25 @@ use Livewire\Component;
 class NavbarProfile extends Component
 {
     public $open = false;
+    public $user;
 
-    public function toggle() { $this->open = !$this->open; }
+    public function mount()
+    {
+        $this->user = auth()->user(); // SIMPAN user sekali saat mount
+    }
 
-    public function close() { $this->open = false; }
+    public function toggle()
+    {
+        $this->open = !$this->open;
+    }
 
-    public function render() {
+    public function close()
+    {
+        $this->open = false;
+    }
+
+    public function render()
+    {
         return view('livewire.navbar-profile');
     }
 }

@@ -88,9 +88,6 @@ public function following()
 {
     return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')->withTimestamps();
 }
-
-
-
  
     public function isFollowing(User $user)
     {

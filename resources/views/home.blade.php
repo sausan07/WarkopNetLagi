@@ -49,7 +49,7 @@
                 <input  
                     type="text" 
                     name="t" 
-                    value="{{ $query ?? '' }}" 
+                    value="{{ $searchQuery ?? '' }}" 
                     placeholder="Cari diskusi..." 
                     class="w-full rounded-full border border-[#FFB347]/60 px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#EB5160]"
                 />
@@ -77,11 +77,11 @@
     </div>
 
  
-        @if(isset($query) && $query)
+        @if(isset($searchQuery) && $searchQuery)
             <div class="flex items-center justify-between">
-                <h1 class="font-utama text-2xl font-bold text-[#373737]">  Hasil Pencarian: <span class="text-[#EB5160]">"{{ $query }}"</span>
+                <h1 class="font-utama text-2xl font-bold text-[#373737]">  Hasil Pencarian: <span class="text-[#EB5160]">"{{ $searchQuery }}"</span>
                 </h1>
-                <a href="{{ route('home') }}" class="text-[#0509f2] hover:underline">← Kembaliiiii</a>
+                <a href="{{ route('home') }}" class="text-[#0509f2] hover:underline">← Kembali</a>
             </div>
         @else
             <h1 class="font-utama text-2xl font-bold text-[#373737]">Diskusi Terbaru</h1>
@@ -101,25 +101,35 @@
                                     text-white flex items-center justify-center font-bold text-sm shadow-sm">
                             {{ strtoupper(substr($thread->user->username, 0, 2)) }}
                         </div>
+                        
                     @endif
                 </div>
                 <div class="flex-1">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-semibold">
-                            {{ $thread->user->username }} 
-                        </h3>
-                        <span class="text-xs bg-[#FFB347]/20 text-[#F29F05] px-3 py-1 rounded-full">
-                            #{{ $thread->category->name }}
-                        </span>
-                    </div>
+<div class="flex items-center gap-2">
+    <h3 class="font-semibold">
+        {{ $thread->user->username }}
+    </h3>
+
+    <span class="text-xs text-gray-500">
+        • {{ $thread->created_at->diffForHumans() }}
+    </span>
+
+    <span class="text-xs bg-[#FFB347]/20 text-[#F29F05] px-3 py-1 rounded-full ml-auto">
+        #{{ $thread->category->name }}
+    </span>
+</div>
+
                     <a href="{{ route('threads.show', $thread->slug) }}">
                         <h2 class="mt-2 text-xl font-utama font-bold text-[#373737] hover:text-[#EB5160] transition">
                             {{ $thread->title }}
                         </h2>
                     </a>
-                    <p class="mt-2 text-[#373737]/90 leading-relaxed line-clamp-2">
-                        {{ Str::limit($thread->content, 200) }}
-                    </p>
+
+                    
+<p class="text-[#555] mb-4 line-clamp-2">
+    {{ Str::limit(strip_tags($thread->content), 150) }}
+</p>
+
                     
               
                     <div class="mt-4 flex items-center gap-6 text-sm text-gray-600">
@@ -138,8 +148,8 @@
         </article>
         @empty
         <div class="bg-white border border-[#FFB347]/50 rounded-2xl shadow p-12 text-center">
-            @if(isset($query) && $query)
-                <p class="text-gray-500 text-lg">Tidak ada hasil untuk "{{ $query }}"</p>
+            @if(isset($searchQuery) && $searchQuery)
+                <p class="text-gray-500 text-lg">Tidak ada hasil untuk "{{ $searchQuery }}"</p>
                 <a href="{{ route('home') }}" class="inline-block mt-4 bg-[#FFB347] hover:bg-[#EB5160] text-white px-6 py-3 rounded-xl font-semibold transition">
                     ← Kembali ke Beranda
                 </a>

@@ -67,7 +67,9 @@
     </div>
 </section>
 
-<livewire:profile-tabs :user="$user" />
+
+@livewire('profile-tabs', ['user' => $user])
+
 
 
 @endsection

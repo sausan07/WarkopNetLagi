@@ -13,7 +13,10 @@
                 </a>
                 <span class="text-xs text-[#555]">{{ $post->created_at->diffForHumans() }}</span>
             </div>
-            <p class="text-[#555]">{{ Str::limit($post->content, 200) }}</p>
+          <p class="text-[#555]">
+    {!! Str::limit(strip_tags($post->content, '<strong><em><u><a><br><ul><ol><li>'), 200) !!}
+</p>
+
         </article>
     @empty
         <p class="text-center text-gray-500 py-8">Belum ada balasan yang dibuat.</p>

@@ -24,7 +24,11 @@
                         </span>
                     </div>
                 </div>
-                <p class="text-[#555] mb-4 line-clamp-2">{{ Str::limit($bookmark->thread->content, 150) }}</p>
+<p class="text-[#555] mb-4 line-clamp-2">
+    {!! Str::limit(strip_tags($bookmark->thread->content, '<p><strong><em><ul><ol><li><span><br><img><blockquote><h1><h2><h3>'), 150) !!}
+</p>
+
+
             </article>
         @elseif($bookmark->post_id && $bookmark->post && $bookmark->post->thread)
             <article class="relative bg-[#FFFAF0] p-5 rounded-2xl shadow-lg border-l-4 border-[#FF6EC7]">
@@ -39,7 +43,11 @@
                     </a>
                     <span class="text-xs text-[#555] ml-2">Disimpan {{ $bookmark->created_at->diffForHumans() }}</span>
                 </div>
-                <p class="text-[#555]">{{ Str::limit($bookmark->post->content, 200) }}</p>
+<p class="text-[#555]">
+    {!! Str::limit(strip_tags($bookmark->post->content, '<p><strong><em><ul><ol><li><span><br><img><blockquote><h1><h2><h3>'), 200) !!}
+</p>
+
+
             </article>
         @else
             <article class="bg-gray-100 p-5 rounded-2xl shadow-lg border-l-4 border-gray-400 opacity-60">
@@ -65,3 +73,4 @@
 
 
 </div>
+

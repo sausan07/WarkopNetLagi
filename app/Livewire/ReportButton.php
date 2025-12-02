@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Report;
 use Livewire\Component;
-use Livewire\Attributes\On; // WAJIB untuk Livewire 3
+use Livewire\Attributes\On; 
 
 class ReportButton extends Component
 {
@@ -13,14 +13,22 @@ class ReportButton extends Component
     public $showModal = false;
     public $reason = '';
 
-    // notif variables
+    // notif
     public $showNotif = false;
     public $notifMessage = '';
     public $notifType = 'success';
 
+    // FIX: cegah toast muncul saat pertama kali buka halaman
+    public $ready = false;
+
     protected $rules = [
         'reason' => 'required|string|min:10|max:500',
     ];
+
+    public function mount()
+    {
+        $this->ready = true;
+    }
 
     public function openModal()
     {
@@ -42,18 +50,13 @@ class ReportButton extends Component
         // Cek sudah melapor
         $reportin = Report::where('user_id', auth()->id())
             ->where(function($q) {
-                if ($this->threadId) {
-                    $q->where('thread_id', $this->threadId);
-                }
-                if ($this->postId) {
-                    $q->where('post_id', $this->postId);
-                }
+                if ($this->threadId) $q->where('thread_id', $this->threadId);
+                if ($this->postId) $q->where('post_id', $this->postId);
             })
             ->first();
 
         if ($reportin) {
-            // ERROR notif
-            $this->showNotif('Anda sudah melaporkan konten ini.', 'error');
+            $this->triggerNotif('Anda sudah melaporkan konten ini.', 'error');
             $this->closeModal();
             return;
         }
@@ -67,27 +70,24 @@ class ReportButton extends Component
             'status' => 'pending',
         ]);
 
-        // SUCCESS notif
-        $this->showNotif('Laporan berhasil dikirim. Terima kasih!', 'success');
+        $this->triggerNotif('Laporan berhasil dikirim. Terima kasih!', 'success');
 
         $this->closeModal();
         $this->dispatch('report-submitted');
     }
 
-    // --- notif Method ---
-    public function showNotif($message, $type = 'success')
+    public function triggerNotif($message, $type = 'success')
     {
         $this->notifMessage = $message;
         $this->notifType = $type;
         $this->showNotif = true;
 
-        $this->dispatch('hide-notif');
+        $this->dispatchBrowserEvent('hide-notif');
     }
 
     #[On('hide-notif')]
     public function hideNotif()
     {
-        sleep(3);
         $this->showNotif = false;
     }
 

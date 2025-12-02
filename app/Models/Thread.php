@@ -18,15 +18,6 @@ class Thread extends Model
         'category_id'
     ];
 
-    protected static function boot() {
-        parent::boot();
-        
-        static::creating(function ($thread) {
-            if (empty($thread->slug)) {
-                $thread->slug = Str::slug($thread->title) . '-' . Str::random(3);
-            }
-        });
-    }
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -42,6 +33,16 @@ class Thread extends Model
 
     public function reports(){
         return $this->hasMany(Report::class);
+    }
+
+        protected static function boot() {
+        parent::boot();
+        
+        static::creating(function ($thread) {
+            if (empty($thread->slug)) {
+                $thread->slug = Str::slug($thread->title) . '-' . Str::random(3);
+            }
+        });
     }
 
     public function getRouteKeyName(){

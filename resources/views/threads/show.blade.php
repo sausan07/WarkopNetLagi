@@ -15,33 +15,39 @@
     <!-- Thread Card -->
     <article class="bg-white border border-[#FFB347]/50 rounded-3xl shadow-lg p-8 mb-10 transition hover:shadow-xl">
         <div class="flex items-start gap-5">
-<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold">
-    @if($thread->user->image)
-        <img src="{{ asset('storage/' . $thread->user->image) }}" 
-             class="w-10 h-10 rounded-full object-cover border shadow-sm" />
-    @else
-        <div class="w-10 h-10 rounded-full bg-black
-                    text-white flex items-center justify-center font-bold text-sm shadow-sm">
-            {{ strtoupper(substr($thread->user->username, 0, 2)) }}
-        </div>
-    @endif
-</div>
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                @if($thread->user->image)
+                    <img src="{{ asset('storage/' . $thread->user->image) }}" 
+                        class="w-10 h-10 rounded-full object-cover border shadow-sm" />
+                @else
+                    <div class="w-10 h-10 rounded-full bg-black
+                                text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                        {{ strtoupper(substr($thread->user->username, 0, 2)) }}
+                    </div>
+                @endif
+            </div>
 
             <div class="flex-1">
-                <div class="flex justify-between items-center mb-2">
-                    <div>
-                        <h3 class="font-semibold text-[#EB5160] text-lg">
-                            <a href="{{ route('profile', $thread->user->username) }}" class="hover:underline">
-                                {{ $thread->user->username }}
-                            </a>
-                        </h3>
-                        <span class="text-xs bg-[#FFB347]/20 text-[#F29F05] px-3 py-1 rounded-full inline-block mt-1 font-semibold">
+                <div>
+                    <h3 class="font-semibold text-[#EB5160] text-lg">
+                        <a href="{{ route('profile', $thread->user->username) }}" class="hover:underline">
+                            {{ $thread->user->username }}
+                        </a>
+                    </h3>
+
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-xs text-gray-500">
+                            {{ $thread->created_at->diffForHumans() }}
+                        </span>
+
+                        <span class="text-xs bg-[#FFB347]/20 text-[#F29F05] px-3 py-1 rounded-full font-semibold">
                             #{{ $thread->category->name }}
                         </span>
                     </div>
                 </div>
+
                 <h1 class="mt-3 text-2xl font-utama font-bold text-[#373737]">{{ $thread->title }}</h1>
-                <p class="mt-3 text-[#373737]/90 leading-relaxed whitespace-pre-line">{{ $thread->content }}</p>
+                <p class="mt-3 text-[#373737]/90 leading-relaxed whitespace-pre-line">{!! $thread->content !!}</p>
                 <div class="flex flex-wrap items-center gap-4 mt-6 text-sm text-[#373737]/70">
                     <span class="flex items-center gap-1.5 font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#F29F05]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -110,6 +116,8 @@
                 <div class="flex items-center gap-4 mt-4 text-sm">
                     @livewire('like-button', ['postId' => $post->id], key('like-'.$post->id))
                     @livewire('bookmark-button', ['postId' => $post->id], key('bookmark-'.$post->id))
+                    @livewire('report-button', ['postId' => $post->id], key('report-post-'.$post->id))
+                    
                 </div>
             </div>
         </div>
@@ -128,6 +136,8 @@
 <script>
     CKEDITOR.replace('editor', {
         height: 200,
+        allowedContent: true,
+        versionCheck: false,
         removeButtons: 'PasteFromWord'
     });
 </script>

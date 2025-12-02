@@ -16,7 +16,10 @@
                     </span>
                 </div>
             </div>
-            <p class="text-[#555] mb-4 line-clamp-2">{{ Str::limit($thread->content, 150) }}</p>
+    <p class="text-[#555] mb-4 line-clamp-2">
+    {{ Str::limit(strip_tags($thread->content), 150) }}
+</p>
+
             <div class="flex gap-4 items-center text-[#555] text-sm">
                 <span>💬 {{ $thread->posts->count() }} Balasan</span>
             </div>

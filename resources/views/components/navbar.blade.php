@@ -12,7 +12,9 @@
                     </svg>
                 </a>
 
-                <livewire:navbar-profile />
+                
+                @livewire('navbar-profile')
+
 
             @else
                 <a href="{{ route('login') }}" class="bg-[#373737] hover:bg-[#FF6EC7] rounded-xl px-4 py-2 font-bold text-white transition-colors">Login</a>

@@ -26,6 +26,7 @@ class AuthForm extends Component
     public function switchTo($form) {
         $this->activeForm = $form;
     }
+    
 
     public function submitLogin() {
         $this->validate([

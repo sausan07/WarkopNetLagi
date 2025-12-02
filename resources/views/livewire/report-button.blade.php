@@ -60,11 +60,21 @@
 
 
     {{-- TOAST NOTIFICATION (LIVEWIRE ONLY) --}}
-    @if($showNotif)
-        <div class="fixed top-4 right-4 z-50 px-6 py-3 rounded-xl shadow-lg text-white
-            {{ $notifType === 'success' ? 'bg-green-500' : 'bg-red-500' }}">
-            {{ $notifMessage }}
-        </div>
-    @endif
+@if($ready && $showNotif)
+    <div class="fixed top-4 right-4 z-50 px-6 py-3 rounded-xl shadow-lg text-white
+        {{ $notifType === 'success' ? 'bg-green-500' : 'bg-red-500' }}">
+        {{ $notifMessage }}
+    </div>
+@endif
+
 
 </div>
+
+<script>
+    window.addEventListener('hide-notif', () => {
+        setTimeout(() => {
+            Livewire.dispatch('hide-notif');
+        }, 3000);
+    });
+</script>
+
